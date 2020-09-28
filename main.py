@@ -3,9 +3,8 @@ import logging
 import tempfile
 from pydub import AudioSegment
 import speech_recognition
-import telegram
+from telegram import Update, ChatAction
 from telegram.ext import Updater, MessageHandler, Filters, CommandHandler, CallbackContext
-from telegram import Update
 
 
 recognizer = speech_recognition.Recognizer()
@@ -17,7 +16,7 @@ def start(update: Update, context: CallbackContext):
 
 
 def voice_to_text(update: Update, context: CallbackContext):
-    context.bot.send_chat_action(chat_id=update.effective_chat.id, action=telegram.ChatAction.TYPING)
+    context.bot.send_chat_action(chat_id=update.effective_chat.id, action=ChatAction.TYPING)
     file_id = update.message.voice.file_id
     file_name_ogg = f'{cache_dir}/{file_id}.ogg'
     file_name_flac = f'{cache_dir}/{file_id}.flac'
